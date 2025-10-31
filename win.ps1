@@ -1,4 +1,4 @@
-$VERSION = "3"
+$VERSION = "4"
 
 Write-Host "Version $VERSION" -Foreground Yellow -Background White
 
@@ -60,7 +60,7 @@ Repair-WinGetPackageManager -Error -ErrorAction SilentlyContinue
 LogInfo -Message "Done"
 Sleep 1
 
-LogInfo -Message "Remove BloatWare"
+LogInfo -Message "Remove BloatWare using WinGet"
 $ar = @("Microsoft.Office","Microsoft.OneDrive","Microsoft.Teams.Classic","OneNote","Skype")
 $ar += @("Microsoft Tips","MSN Weather","Feedback Hub","Groove Music","Movies & TV","Your Phone")
 $ar += @("Xbox Game Bar Plugin","Xbox Game Bar","Xbox Speech Window","Xbox Identity Provider","Xbox")
@@ -69,4 +69,21 @@ $ar += @("TeamViwer.TeamViewer")
 foreach($it in $ar){
   WinGet remove $it
 }
+
+LogInfo -Message "Remove BloatWare using AppxPackage"
+$ar = @("*3dbuilder*"," *Microsoft.GetHelp*","*getstarted*","*skypeapp*","*zunemusic*")
+$ar += @("*bingfinance*","*zunevideo*","*news*","*onenote*","*windowsphone*","*bingsports*")
+$ar += @("*weather*","*todo*","*clipchamp*")
+$ar += @("MicrosoftTeams","MSTeams","Microsoft.OutlookForWindows")
+$ar = @("*windowscommunicationsapps*","*windowsmaps*","*linkedin*","*office*")
+$ar += @("*xboxapp*","Microsoft.Xbox.*")
+$ar += @("*GetHelp*","*StickyNotes*","*Solitaire*")
+
+foreach($it in $ar){
+    Write-Host $it
+    Get-AppxPackage $it | Remove-AppxPackage -AllUsers -Verbose -ErrorAction Continue
+}
+
+
+
 
