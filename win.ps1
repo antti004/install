@@ -40,12 +40,13 @@ if ($exePolicy -ne 'Bypass'){
 LogInfo -Message "Install neccesary programs"
 
 LogInfo -Message "# Install NuGet"
-Install-PackageProvider -Name NuGet -Force
+Install-PackageProvider -Name NuGet -Force -ErrorAction SilentlyContinue
 
 LogInfo -Message "# Install WinGet"
-Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers
+Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers -ErrorAction SilentlyContinue
 
 LogInfo -Message "# Repair WinGet"
-Repair-WinGetPackageManager
+Repair-WinGetPackageManager -Error -ErrorAction SilentlyContinue
+
 LogInfo -Message "Done"
-Delay 1
+Sleep 1
