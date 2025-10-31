@@ -1,8 +1,10 @@
-Write-Host "Version 2" -Foreground Yellow -Background White
+$VERSION = "3"
+
+Write-Host "Version $VERSION" -Foreground Yellow -Background White
 
 if( $args.Contains("upgrade")  ){
     Write-Host "Upgrade downoad..."
-    Invoke-WebRequest https://github.com/install/raw/main/win.ps1 -o win.ps1
+    Invoke-WebRequest https://github.com/antti004/install/raw/main/win.ps1 -o win.ps1
     return
 }
 
