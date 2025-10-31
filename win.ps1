@@ -44,5 +44,5 @@ Progress -Id $Id -Activity $INSTALLING -Value 30 -Status "WinGet client"
 Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers
 Progress -Id $Id -Activity $INSTALLING -Value 70 -Status "Repain WinGet" 
 Repair-WinGetPackageManager
-Progress -Id $Id -Activity $INSTALLING -Value 100 -Status "" 
+Progress -Id $Id -Activity $INSTALLING -Value 100 -Status "Done" 
 Delay 1
