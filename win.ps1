@@ -1,4 +1,4 @@
-$VERSION = "4"
+$VERSION = "5"
 
 Write-Host " Version $VERSION " -Foreground Yellow 
 
@@ -26,7 +26,8 @@ function LogInfo{
     param (
         [string]$Message
     )
-    Write-Host $Message -Foreground Yellow -Background Gray
+    Write-Host $Message -Foreground Yellow 
+    #-Background Gray
 }
 
 #
@@ -55,7 +56,7 @@ LogInfo -Message "# Install WinGet"
 Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers -ErrorAction SilentlyContinue
 
 LogInfo -Message "# Repair WinGet"
-Repair-WinGetPackageManager -Error -ErrorAction SilentlyContinue
+Repair-WinGetPackageManager  -ErrorAction SilentlyContinue
 
 LogInfo -Message "Done"
 Sleep 1
@@ -75,14 +76,25 @@ $ar = @("*3dbuilder*"," *Microsoft.GetHelp*","*getstarted*","*skypeapp*","*zunem
 $ar += @("*bingfinance*","*zunevideo*","*news*","*onenote*","*windowsphone*","*bingsports*")
 $ar += @("*weather*","*todo*","*clipchamp*")
 $ar += @("MicrosoftTeams","MSTeams","Microsoft.OutlookForWindows")
-$ar = @("*windowscommunicationsapps*","*windowsmaps*","*linkedin*","*office*")
-$ar += @("*xboxapp*","Microsoft.Xbox.*")
-$ar += @("*GetHelp*","*StickyNotes*","*Solitaire*")
+
+LogInfo -Message "Remove using AppxPackage AllUsers"
 
 foreach($it in $ar){
     Write-Host $it
     Get-AppxPackage $it | Remove-AppxPackage -AllUsers -Verbose -ErrorAction Continue
 }
+
+$ar = @("*windowscommunicationsapps*","*windowsmaps*","*linkedin*","*office*")
+$ar += @("*xboxapp*","Microsoft.Xbox.*")
+$ar += @("*GetHelp*","*StickyNotes*","*Solitaire*")
+
+LogInfo -Message "Remove using AppxPackage User"
+
+foreach($it in $ar){
+    Write-Host $it
+    Get-AppxPackage $it | Remove-AppxPackage -Verbose -ErrorAction Continue
+}
+
 
 
 
