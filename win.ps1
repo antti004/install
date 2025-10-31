@@ -1,4 +1,11 @@
-Write-Host "Version 1.1"
+Write-Host "Version 2" -Foreground Yellow -Background White
+
+if( $args.Contains("upgrade")  ){
+    Write-Host "Upgrade downoad..."
+    Invoke-WebRequest https://github.com/install/raw/main/win.ps1 -o win.ps1
+    return
+}
+
 
 $INSTALLING = "Installing"
 $ID = 1
@@ -50,3 +57,14 @@ Repair-WinGetPackageManager -Error -ErrorAction SilentlyContinue
 
 LogInfo -Message "Done"
 Sleep 1
+
+LogInfo -Message "Remove BloatWare"
+$ar = @("Microsoft.Office","Microsoft.OneDrive","Microsoft.Teams.Classic","OneNote","Skype")
+$ar += @("Microsoft Tips","MSN Weather","Feedback Hub","Groove Music","Movies & TV","Your Phone")
+$ar += @("Xbox Game Bar Plugin","Xbox Game Bar","Xbox Speech Window","Xbox Identity Provider","Xbox")
+$ar += @("TeamViwer.TeamViewer")
+
+foreach($it in $ar){
+  WinGet remove $it
+}
+
