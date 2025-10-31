@@ -1,6 +1,6 @@
 $VERSION = "4"
 
-Write-Host "Version $VERSION" -Foreground Yellow -Background White
+Write-Host " Version $VERSION " -Foreground Yellow 
 
 if( $args.Contains("upgrade")  ){
     Write-Host "Upgrade downoad..."
