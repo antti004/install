@@ -38,11 +38,14 @@ if ($exePolicy -ne 'Bypass'){
 
 
 LogInfo -Message "Install neccesary programs"
-Progress -Id $Id -Activity $INSTALLING -Value 10 -Status "NuGet" 
+
+LogInfo -Message "# Install NuGet"
 Install-PackageProvider -Name NuGet -Force
-Progress -Id $Id -Activity $INSTALLING -Value 30 -Status "WinGet client" 
+
+LogInfo -Message "# Install WinGet"
 Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers
-Progress -Id $Id -Activity $INSTALLING -Value 70 -Status "Repain WinGet" 
+
+LogInfo -Message "# Repair WinGet"
 Repair-WinGetPackageManager
-Progress -Id $Id -Activity $INSTALLING -Value 100 -Status "Done" 
+LogInfo -Message "Done"
 Delay 1
