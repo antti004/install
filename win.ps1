@@ -1,4 +1,4 @@
-$VERSION = "5"
+$VERSION = "6"
 
 Write-Host " Version $VERSION " -Foreground Yellow 
 
@@ -6,20 +6,6 @@ if( $args.Contains("upgrade")  ){
     Write-Host "Upgrade downoad..."
     Invoke-WebRequest https://github.com/antti004/install/raw/main/win.ps1 -o win.ps1
     return
-}
-
-
-$INSTALLING = "Installing"
-$ID = 1
-
-function  Progress {
-    param (
-        [int]$Id,
-        [string]$Activity,
-        [int]$Value,
-        [string]$Status
-    )
-    Write-Progress -Id $Id -Activity $Activity -PercentComplete $Value -Status $Status
 }
 
 function LogInfo{
