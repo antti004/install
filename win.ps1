@@ -1,4 +1,4 @@
-$VERSION = "6"
+$VERSION = "7"
 
 Write-Host " Version $VERSION " -Foreground Yellow 
 
@@ -41,8 +41,12 @@ Install-PackageProvider -Name NuGet -Force -ErrorAction SilentlyContinue
 LogInfo -Message "# Install WinGet"
 Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -Scope AllUsers -ErrorAction SilentlyContinue
 
-LogInfo -Message "# Repair WinGet"
-Repair-WinGetPackageManager  -ErrorAction SilentlyContinue
+#LogInfo -Message "# Repair WinGet"
+#Repair-WinGetPackageManager  -ErrorAction SilentlyContinue
+
+LogInfo -Message "Install PowerShell Preview"
+winget install --id Microsoft.PowerShell.Preview --source winget
+
 
 LogInfo -Message "Done"
 Sleep 1
