@@ -1,0 +1,11 @@
+-type: Microsoft.Winget/Package
+name: GitHubCLI
+dependsOn:
+- Git
+- InstallUbuntu
+properties:
+  id: GitHub.Cli
+  source: winget
+  useLatest: true
+metadata:
+  description: Install GitHub Cli
