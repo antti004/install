@@ -1,30 +1,22 @@
 $ver = 1
 Write-Host "# VERSION $ver" -ForegroundColor yellow
 
-function LogInfo { param([string]$Message) Write-Host "==== $Message" -ForegroundColor Cyan }
+. ./lib-registry.ps1
 
-function Ensure-Key { param([string]$Path) if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null } }
-function Set-Reg {
-    param([string]$Path,[string]$Name,$Value,[ValidateSet('String','ExpandString','Binary','DWord','QWord','MultiString')][string]$Type='DWord')
-    Ensure-Key $Path
-    New-ItemProperty -Path $Path -Name $Name -Value $Value -PropertyType $Type -Force | Out-Null
-}
-function Remove-Reg { param([string]$Path,[string]$Name) if (Test-Path $Path) { Remove-ItemProperty -Path $Path -Name $Name -ErrorAction SilentlyContinue } }
-function Set-ServiceState {
-    param([string]$Name,[ValidateSet('Automatic','Manual','Disabled')][string]$StartupType,[switch]$Stop)
-    $svc = Get-Service -Name $Name -ErrorAction SilentlyContinue
-    if (-not $svc) { return }
-    if ($Stop -and $svc.Status -ne 'Stopped') { Stop-Service -Name $Name -Force -ErrorAction SilentlyContinue }
-    Set-Service -Name $Name -StartupType $StartupType -ErrorAction SilentlyContinue
-}
+function Log-Info { param([string]$Message) Write-Host "==== $Message" -ForegroundColor Cyan }
 
+Log-Info 'Disable Widgets and news feeds'
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' 'AllowNewsAndInterests' 0
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds' 'EnableFeeds' 0
+Set-Reg 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'TaskbarDa' 0
 
-
-
-
-$apps = "Microsoft.PowerShell", "MIcrosoft.WindowsTerminal"
-
-foreach ($app in $apps) {
-    LogInfo -Message "Installing : $app"
-    winget install $app
-}
+Log-Info 'Disable telemetry and background diagnostic collection'
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' 'AllowTelemetry' 0
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' 'DoNotShowFeedbackNotifications' 1
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' 'DisableOneSettingsDownloads' 1
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' 'AITEnable' 0
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' 'DisableInventory' 1
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' 'DisablePCA' 1
+Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo' 'DisabledByGroupPolicy' 1
+Set-Reg 'HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo' 'Enabled' 0
+Set-Reg 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy' 'TailoredExperiencesWithDiagnosticDataEnabled' 0
