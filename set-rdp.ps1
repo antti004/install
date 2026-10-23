@@ -16,8 +16,8 @@
         $result.Status = 'Success'
     } catch {
         $result.Status = 'Error'
+        Write-Error $_
     }
     $BaseKey.Close()
 
-    $result
     
