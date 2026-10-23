@@ -17,7 +17,7 @@ foreach ($item in $repoContent) {
         continue
     }
     
-    Write-Host $item.Name $item.size $item.download_url
+    Write-Host $item.name $item.size
 
     Invoke-WebRequest -Uri $item.download_url -OutFile (Join-Path $PSScriptRoot $item.name)
 
