@@ -56,7 +56,6 @@ foreach ($item in $repoContent) {
         continue
     }
     
-    continue
     if($item.type -eq 'file'){
         Write-Host $item.name $item.size
 
