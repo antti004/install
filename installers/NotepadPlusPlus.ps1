@@ -20,3 +20,5 @@ $outputPath = Join-Path $env:TEMP $fileName
 
 Write-Host "Downloading Notepad++ $($release.tag_name)..." -ForegroundColor Cyan
 Invoke-WebRequest -Uri $downloadUrl -OutFile $outputPath
+
+. ./$outputPath
