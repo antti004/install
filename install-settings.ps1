@@ -1,5 +1,4 @@
 $ver = 1
-$ver = 1
 $scriptName = Split-Path -Leaf $PSCommandPath
 Write-Host "# $scriptName VERSION $ver" -ForegroundColor yellow
 

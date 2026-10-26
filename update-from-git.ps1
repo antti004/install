@@ -1,7 +1,8 @@
 
 
-$version=17
-Write-Host "Version: $version" -ForegroundColor White 
+$ver=17
+$scriptName = Split-Path -Leaf $PSCommandPath
+Write-Host "# $scriptName VERSION $ver" -ForegroundColor yellow
 
 
 $REPO_URL="https://api.github.com/repos/antti004/install/contents"
