@@ -1,5 +1,6 @@
 
-$version="1.6"
+
+$version=17
 Write-Host "Version: $version" -ForegroundColor White 
 
 
