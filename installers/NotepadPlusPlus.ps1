@@ -18,7 +18,13 @@ $downloadUrl = $asset.browser_download_url
 $fileName = $asset.name
 $outputPath = Join-Path $env:TEMP $fileName
 
-Write-Host "Downloading Notepad++ $($release.tag_name)..." -ForegroundColor Cyan
-Invoke-WebRequest -Uri $downloadUrl -OutFile $outputPath
+
+
+if (Test-Path -Path $outputPath -PathType Leaf) {
+    Write-Host "Installer already exists at $outputPath; skipping download." -ForegroundColor Yellow
+} else {
+    Write-Host "Downloading Notepad++ $($release.tag_name)..." -ForegroundColor Cyan
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $outputPath
+}
 
 . ./$outputPath
