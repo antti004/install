@@ -29,10 +29,11 @@ function Get-GitFiles($baseUrl,$dirName){
 
         if($item.type -eq 'file'){
 
-            $targetFile = Join-Path $PSScriptRoot $dirName $item.name
+            $targetFile = Join-Path $PSScriptRoot $dirName
+            $targetFile = Join-Path $targetFile  $item.name
             Write-Host $item.name $item.size $targetFile
 
-           Invoke-WebRequest -Uri $item.download_url -OutFile $targetFile
+            Invoke-WebRequest -Uri $item.download_url -OutFile $targetFile
 
         }
     }   
