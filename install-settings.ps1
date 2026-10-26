@@ -1,7 +1,9 @@
 $ver = 1
-Write-Host "# VERSION $ver" -ForegroundColor yellow
+$ver = 1
+$scriptName = Split-Path -Leaf $PSCommandPath
+Write-Host "# $scriptName VERSION $ver" -ForegroundColor yellow
 
-. ./lib-registry.ps1
+. ./lib/lib-registry.ps1
 
 function Log-Info { param([string]$Message) Write-Host "==== $Message" -ForegroundColor Cyan }
 
