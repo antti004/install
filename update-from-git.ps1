@@ -1,5 +1,5 @@
 
-$version="1.4"
+$version="1.5"
 Write-Host "Version: $version" -ForegroundColor White 
 
 
@@ -51,7 +51,7 @@ $repoContent = $resp.Content | ConvertFrom-Json
 foreach ($item in $repoContent) {
 
     if ($item.type -eq 'dir'){
-        Write-Host "$($item.name) ($($item.type))" -ForegroundColor DarkGray
+        Write-Host "$($item.name) ($($item.type))" -ForegroundColor Magenta
         Get-GitFiles -baseUrl $REPO_URL -dirName $item.name
         continue
     }
