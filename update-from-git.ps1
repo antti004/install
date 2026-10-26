@@ -51,13 +51,13 @@ $repoContent = $resp.Content | ConvertFrom-Json
 foreach ($item in $repoContent) {
 
     if ($item.type -eq 'dir'){
-        Write-Host "$($item.name) ($($item.type))" -ForegroundColor Magenta
+        Write-Host "[$($item.name)] ($($item.type))" -ForegroundColor  DarkYellow
         Get-GitFiles -baseUrl $REPO_URL -dirName $item.name
         continue
     }
     
     if($item.type -eq 'file'){
-        Write-Host $item.name $item.size
+        Write-Host $item.name $item.size -ForegroundColor DarkYellow
 
         Invoke-WebRequest -Uri $item.download_url -OutFile (Join-Path $PSScriptRoot $item.name)
     }
