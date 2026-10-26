@@ -27,4 +27,8 @@ if (Test-Path -Path $outputPath -PathType Leaf) {
     Invoke-WebRequest -Uri $downloadUrl -OutFile $outputPath
 }
 
-. ./$outputPath
+
+Start-Process -FilePath $outputPath  -Wait
+
+# Clean up the downloaded installer file
+Remove-Item -Path $outputPath -ErrorAction SilentlyContinue
