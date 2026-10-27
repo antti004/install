@@ -43,12 +43,37 @@ function Get-GitFiles($baseUrl,$dirName){
 }
 
 
+Function Remove-TempFiles($repoFiles){
+    $files = Get-ChildItem  -File -Path .
 
-#Get-GitFiles($REPO_URL,"")
+    foreach ($file in $files)
+     {
+        Write-Host "-- $($file.Name)"
+        if (-not ($repoFiles | Where-Object { $_.name -eq $file.Name })) {
+            Write-Host "Remove local $($file.Name)"
+            Remove-Item -LiteralPath $file.FullName -Force
+        }
+    }
+
+
+
+}
+
+
+
 
 
 $resp = Invoke-WebRequest -Uri $REPO_URL
 $repoContent = $resp.Content | ConvertFrom-Json
+
+
+$repoFiles = @($repoContent | Where-Object { $_.type -eq 'file' })
+Write-Host "Repo contains $($repoContent.Count)"
+
+Remove-TempFiles -repoFiles $repoFiles
+
+return
+
 
 foreach ($item in $repoContent) {
 
