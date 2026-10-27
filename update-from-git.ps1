@@ -1,10 +1,11 @@
 
 
-$ver=17
+$ver=18
 $scriptName = Split-Path -Leaf $PSCommandPath
-Write-Host "# $scriptName VERSION $ver" -ForegroundColor yellow
 
 $IsDebug = $args -contains '-debug' -or $args -contains 'debug'
+Write-Host "# $scriptName VERSION $ver Debug=$IsDebug" -ForegroundColor yellow
+
 
 
 $REPO_URL="https://api.github.com/repos/antti004/install/contents"
