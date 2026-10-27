@@ -13,3 +13,8 @@ New-Item -Path $pathCheckbox -Force | Out-Null
 
 Set-ItemProperty -Path $pathCheckbox -Name "AutoCheckSelect" -Value 0 -Type DWord
 Set-ItemProperty -Path $pathCheckbox -Name "UseCheckBoxes" -Value 0 -Type DWord
+
+
+
+# Restart Windows Explorer to apply changes immediately
+Stop-Process -Name explorer -Force
