@@ -34,8 +34,3 @@ Write-Host "Disable search box" -ForegroundColor Yellow
     }
     Set-ItemProperty -Path $SearchPath -Name "ConnectedSearchUseWeb" -Value 0 -Type DWord
 
-
-
-
-# Restart Windows Explorer to apply changes immediately
-Stop-Process -Name explorer -Force

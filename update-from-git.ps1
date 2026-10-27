@@ -4,6 +4,8 @@ $ver=17
 $scriptName = Split-Path -Leaf $PSCommandPath
 Write-Host "# $scriptName VERSION $ver" -ForegroundColor yellow
 
+$IsDebug = $args -contains '-debug' -or $args -contains 'debug'
+
 
 $REPO_URL="https://api.github.com/repos/antti004/install/contents"
 
@@ -72,7 +74,9 @@ Write-Host "Repo contains $($repoContent.Count)"
 
 Remove-TempFiles -repoFiles $repoFiles
 
-return
+if($IsDebug){
+    return
+}
 
 
 foreach ($item in $repoContent) {
